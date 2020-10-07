@@ -6,9 +6,19 @@
     <title>Document</title>
 </head>
 <body>
-
-    <textarea name="speech" id="speech" cols="30" rows="10"></textarea>
-    <button id="speech-button">Speech</button>
+    <div class="main">
+        <div>
+            <label for="rate">Velocidade: </label>
+            <input id="rate" type="range" min="1" max="10" step="1" value="1">
+            <span id="rateText"></span>
+        </div>
+        <div>
+            <textarea name="speech" id="speech" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <button id="speech-button">Speech</button>
+        </div>
+    </div>
 
     <script src="./index.js"></script>
 </body>
