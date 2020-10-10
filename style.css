@@ -9,3 +9,7 @@
     display: block;
     text-align: center;
 }
+
+.options {
+    justify-content: space-between;
+}
