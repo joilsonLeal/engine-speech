@@ -9,6 +9,11 @@ const volumeText = $('#volume-text');
 const speechSize = $('#speech-size');
 
 const speechButton = $('#speech-button');
+const pauseButton = $('#pause-button');
+const resumeButton = $('#resume-button');
+
+
+
 const utterance = new SpeechSynthesisUtterance();
 let pitch = pitchRange.value;
 let rate = rateRange.value;
@@ -52,5 +57,13 @@ function init() {
     volumeText.innerHTML = volume * 100;
     speechSize.innerHTML = `${currentSize}/${characters}`;
 }
+
+pauseButton.addEventListener('click', (e) => { 
+    speechSynthesis.pause(utterance);
+});
+
+resumeButton.addEventListener('click', (e) => { 
+    speechSynthesis.resume(utterance);
+});
 
 init();
