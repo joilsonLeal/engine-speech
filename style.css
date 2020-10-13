@@ -11,5 +11,10 @@
 }
 
 .options {
-    justify-content: space-between;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.options div {
+    margin-left: 15px;
 }
