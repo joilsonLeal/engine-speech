@@ -1,9 +1,10 @@
-import React from 'react';
-import { GlobalStyles } from './styles/GlobalStyles';
-
+import React from 'react'
+import { GlobalStyles } from './styles/GlobalStyles'
+import Speech from './components/Speech'
 function App() {
   return (
     <>
+      <Speech />
       <div className="App">
         <div className="main">
           <div className="options">
