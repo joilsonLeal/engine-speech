@@ -1,7 +1,15 @@
-.main {
+body {
+    margin: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.main {
+    width: 800px;
+    display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
 }
 
@@ -11,10 +19,6 @@
 }
 
 .options {
+    margin-top: 10px;
     display: flex;
-    justify-content: space-between;
-}
-
-.options div {
-    margin-left: 15px;
 }
