@@ -4,10 +4,11 @@ import { parse } from 'url';
 import { Container } from './styles'
 
 const Speech: React.FC = () => {
-
+    const utterance = new SpeechSynthesisUtterance();
     const [ volume, setVolume ] = useState('100');
     const [ pitch, setPitch ] = useState('1');
     const [ rate, setRate ] = useState('1');
+    const [ text, setText ] = useState('');
 
     const changeVolume = (value: string) => {
         setVolume((parseFloat(value) * 100).toFixed(0));
@@ -19,6 +20,17 @@ const Speech: React.FC = () => {
 
     const changeRate = (value: string) => {
         setRate(parseFloat(value).toFixed(0));
+    }
+
+
+
+    const startSpeech = () => {
+        utterance.text = text;
+        utterance.lang = 'pt-BR';
+        utterance.rate = parseInt(rate);
+        utterance.pitch = parseFloat(pitch);
+        utterance.volume = parseFloat(volume);
+        speechSynthesis.speak(utterance);
     }
 
     return (
@@ -43,11 +55,11 @@ const Speech: React.FC = () => {
                     </div>
                 </div>
                 <div>
-                    <textarea name="speech" id="speech" cols={120} rows={40}></textarea>
+                    <textarea name="speech" id="speech" onChange={e => setText(e.target.value) } cols={120} rows={40}></textarea>
                     <span id="speech-size"></span>
                 </div>
                 <div> 
-                    <button id="speech-button">Speech</button>
+                    <button id="speech-button" onClick={startSpeech}>Speech</button>
                     <button id="pause-button">Pause</button>
                     <button id="resume-button">Resume</button>
                 </div>
