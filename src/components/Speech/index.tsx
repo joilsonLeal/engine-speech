@@ -1,10 +1,12 @@
-import React, { FormEvent, useState } from 'react'
-import { parse } from 'url';
+import React, { FormEvent, useState } from 'react';
 
-import { Container } from './styles'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause, faStop } from '@fortawesome/free-solid-svg-icons';
+import { Container } from './styles';
 
 const Speech: React.FC = () => {
     const utterance = new SpeechSynthesisUtterance();
+    const [ pause, setPause ] = useState(false);
     const [ rate, setRate ] = useState('8');
     const [ text, setText ] = useState('');
 
@@ -20,34 +22,43 @@ const Speech: React.FC = () => {
     }
 
     const pauseSpeech = () => {
-        speechSynthesis.pause();
+        setPause(!pause);
+        pause ? speechSynthesis.pause() : speechSynthesis.resume();
     }
 
-    const resumeSpeech = () => {
-        speechSynthesis.resume();
+    const stopSpeech = () => {
+        speechSynthesis.cancel();
     }
 
     return (
         <>
             <div className="App">
                 <div className="main">
-                <div className="options">
+                    <div className="options">
+                        <div>
+                            <label htmlFor="rate">Velocidade: </label>
+                            <input id="rate" type="range" min="1" max="10" step="1" defaultValue="8" onChange={e => changeRate(e.target.value)} />
+                            <span id="rate-text">{rate}</span>
+                        </div>
+                    </div>
                     <div>
-                        <label htmlFor="rate">Velocidade: </label>
-                        <input id="rate" type="range" min="1" max="10" step="1" defaultValue="8" onChange={e => changeRate(e.target.value)} />
-                        <span id="rate-text">{rate}</span>
+                        <textarea name="speech" id="speech" onChange={e => setText(e.target.value) } cols={120} rows={40}></textarea>
+                        <span id="speech-size"></span>
+                    </div>
+                    <div> 
+                        <button onClick={startSpeech}>
+                            <FontAwesomeIcon icon={faPlay} />
+                        </button>
+                        <button onClick={pauseSpeech}>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <FontAwesomeIcon icon={faPause} />
+                        </button>
+                        <button onClick={stopSpeech}>
+                            <FontAwesomeIcon icon={faStop} />
+                        </button>
                     </div>
                 </div>
-                <div>
-                    <textarea name="speech" id="speech" onChange={e => setText(e.target.value) } cols={120} rows={40}></textarea>
-                    <span id="speech-size"></span>
-                </div>
-                <div> 
-                    <button id="speech-button" onClick={startSpeech}>Speech</button>
-                    <button id="pause-button" onClick={pauseSpeech}>Pause</button>
-                    <button id="resume-button" onClick={resumeSpeech}>Resume</button>
-                </div>
-                </div>
+                
             </div>
         </>
     )
