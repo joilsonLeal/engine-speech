@@ -5,22 +5,26 @@ import { Container } from './styles'
 
 const Speech: React.FC = () => {
     const utterance = new SpeechSynthesisUtterance();
-    const [ rate, setRate ] = useState('1');
+    const [ rate, setRate ] = useState('8');
     const [ text, setText ] = useState('');
 
     const changeRate = (value: string) => {
         setRate(parseFloat(value).toFixed(0));
     }
 
-
-
     const startSpeech = () => {
         utterance.text = text;
         utterance.lang = 'pt-BR';
         utterance.rate = parseInt(rate);
-        utterance.pitch = parseFloat(pitch);
-        utterance.volume = parseFloat(volume);
         speechSynthesis.speak(utterance);
+    }
+
+    const pauseSpeech = () => {
+        speechSynthesis.pause();
+    }
+
+    const resumeSpeech = () => {
+        speechSynthesis.resume();
     }
 
     return (
@@ -30,7 +34,7 @@ const Speech: React.FC = () => {
                 <div className="options">
                     <div>
                         <label htmlFor="rate">Velocidade: </label>
-                        <input id="rate" type="range" min="1" max="10" step="1" defaultValue="1" onChange={e => changeRate(e.target.value)} />
+                        <input id="rate" type="range" min="1" max="10" step="1" defaultValue="8" onChange={e => changeRate(e.target.value)} />
                         <span id="rate-text">{rate}</span>
                     </div>
                 </div>
@@ -40,8 +44,8 @@ const Speech: React.FC = () => {
                 </div>
                 <div> 
                     <button id="speech-button" onClick={startSpeech}>Speech</button>
-                    <button id="pause-button">Pause</button>
-                    <button id="resume-button">Resume</button>
+                    <button id="pause-button" onClick={pauseSpeech}>Pause</button>
+                    <button id="resume-button" onClick={resumeSpeech}>Resume</button>
                 </div>
                 </div>
             </div>
