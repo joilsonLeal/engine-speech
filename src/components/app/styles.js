@@ -4,6 +4,8 @@ export const Button = styled.button`
     width: 40px;
     height: 40px;
     margin: 8px;
+    border-radius: 50%;
+    background-color: tomato;
 `
 
 export const Container = styled.div`
@@ -14,4 +16,11 @@ export const Container = styled.div`
 
 export const Options = styled.div`
     margin: 8px;
+`
+
+export const TextArea = styled.textarea`
+    border-radius: 12px;
+    border: 2px solid tomato;
+    outline: none;
+    padding: 8px
 `
