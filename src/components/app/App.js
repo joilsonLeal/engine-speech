@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faStop } from '@fortawesome/free-solid-svg-icons';
@@ -9,14 +9,21 @@ const App = () => {
     const [ pause, setPause ] = useState(false);
     const [ rate, setRate ] = useState('8');
     const [ text, setText ] = useState('');
+    const [ voice, setVoice ] = useState('pt-BR');
+    const voices = [
+        {name: 'Microsoft Maria Desktop - Portuguese(Brazil)', lang: 'pt-BR'},
+        {name: 'Microsoft Zira Desktop - English (United States)', lang: 'en-US'},
+    ];
+
     const textarea = document.getElementById('textarea');
+
     const changeRate = (value) => {
         setRate(parseFloat(value).toFixed(0));
     }
 
     const startSpeech = () => {
         utterance.text = text;
-        utterance.lang = 'pt-BR';
+        utterance.lang = voice;
         utterance.rate = parseInt(rate);
         utterance.onboundary = onboundaryHandler;
         speechSynthesis.speak(utterance);
@@ -82,9 +89,20 @@ const App = () => {
                     <input id="rate" type="range" min="1" max="10" step="1" defaultValue="8" onChange={e => changeRate(e.target.value)} />
                     <span id="rate-text">{rate}</span>
                 </Options>
+                <select id="select-voice" onChange={(e) => setVoice(e.target.value)}>
+                {
+                    voices.map(voice => {
+                        return  (
+                            <option key={voice.lang} value={voice.lang}>
+                                {voice.name}
+                            </option>
+                        )
+                    })
+                }
+                </select>
             </Container>
             <Container>
-                <TextArea ref={() => textarea} id="textarea" onChange={e => setText(e.target.value) } cols={120} rows={40} ></TextArea>
+                <TextArea id="textarea" onChange={e => setText(e.target.value) } cols={120} rows={40} ></TextArea>
                 <span id="speech-size"></span>
             </Container>
             <Container> 
