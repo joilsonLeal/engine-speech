@@ -10,6 +10,8 @@ const App = () => {
     const [ rate, setRate ] = useState('8');
     const [ text, setText ] = useState('');
     const [ voice, setVoice ] = useState('pt-BR');
+    const letterSize = 16;
+    let lineSize = 0;
     const voices = [
         {name: 'Microsoft Maria Desktop - Portuguese(Brazil)', lang: 'pt-BR'},
         {name: 'Microsoft Zira Desktop - English (United States)', lang: 'en-US'},
@@ -26,6 +28,7 @@ const App = () => {
         utterance.lang = voice;
         utterance.rate = parseInt(rate);
         utterance.onboundary = onboundaryHandler;
+        textarea.scrollTop = 0;
         speechSynthesis.speak(utterance);
     }
 
@@ -49,6 +52,10 @@ const App = () => {
     
         if (textarea.setSelectionRange) {
             textarea.setSelectionRange(anchorPosition, activePosition);
+            
+            if(scrollDown(word.length+1)) {
+                textarea.scrollTop += letterSize;
+            }
         }
         else {
             let range = textarea.createTextRange();
@@ -58,6 +65,16 @@ const App = () => {
             range.select();
         }
     };
+
+    function scrollDown(wordSize) {
+        const colLength = 158;
+        lineSize += wordSize;
+        if(lineSize < colLength) 
+            return false;
+        
+        lineSize -= colLength;
+        return true;
+    }
 
     function getWordAt(str, pos) {
         str = String(str);
