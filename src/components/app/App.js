@@ -24,11 +24,12 @@ const App = () => {
     }
 
     const startSpeech = () => {
+        lineSize = 0;
+        textarea.scrollTop = 0;
         utterance.text = text;
         utterance.lang = voice;
         utterance.rate = parseInt(rate);
         utterance.onboundary = onboundaryHandler;
-        textarea.scrollTop = 0;
         speechSynthesis.speak(utterance);
     }
 
