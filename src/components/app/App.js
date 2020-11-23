@@ -35,7 +35,8 @@ const App = () => {
 
     const pauseSpeech = () => {
         setPause(!pause);
-        pause ? speechSynthesis.pause() : speechSynthesis.resume();
+        if(pause) speechSynthesis.pause() 
+        else speechSynthesis.resume();
     }
 
     const stopSpeech = () => {
