@@ -69,7 +69,7 @@ const App = () => {
     };
 
     function scrollDown(wordSize) {
-        const colLength = 162;
+        const colLength = 157;
         lineSize += wordSize;
         if(lineSize < colLength) 
             return false;
